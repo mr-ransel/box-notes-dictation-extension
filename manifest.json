@@ -8,11 +8,11 @@
   "content_scripts": [
     {
       "matches": ["https://cloud.app.box.com/services/box_notes/*"],
-      "js": ["input.js", "output.js", "jquery.js", "annyang.min.js"]
+      "js": ["input.js", "output.js", "jquery.js"]
     },
     {
       "matches": ["https://notes.services.box.com/*"],
-      "js": ["input.js", "output.js", "jquery.js", "annyang.min.js"]
+      "js": ["input.js", "output.js", "jquery.js"]
     }
   ]
 }
