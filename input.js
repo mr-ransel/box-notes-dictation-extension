@@ -147,11 +147,11 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
 
           if (event.results[i].isFinal) {
-            current_line_concrete_content += results[i].transcript;
+            current_line_concrete_content += results[i].transcript + ' ';
             current_line_interim_content = '';
             console.log('concrete:' + current_line_concrete_content);
             console.log('interim:' + current_line_interim_content);
-            annyang.init();
+            annyang.init({},false);
           } else {
             current_line_interim_content = results[i].transcript;
             console.log('concrete:' + current_line_concrete_content);
