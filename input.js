@@ -138,7 +138,11 @@
         console.log(results);
         console.log(results[0].transcript);
 
-        print_input(results[0].transcript);
+        // print_input(results[0].transcript);
+
+        var body = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body;
+		body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML += results[0].transcript;
+		// body.appendChild(document.createElement('div').appen);
 
         var commandText;
         // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
