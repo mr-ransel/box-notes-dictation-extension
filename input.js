@@ -140,12 +140,15 @@
 
         // print_input(results[0].transcript);
         var body = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body;
-        if (!(body.getElementsByTagName('div').length))
+        if (!(body.getElementsByTagName('div')[0].getElementsByTagName('span').length))
         {
-    		var new_div = document.createElement('div');
+        	// #magicdomid1 > br
+        	console.log("adding span");
+        	// var br = body.getElementsByTagName('div')[0].getElementsByTagName('br');
+			// body.getElementsByTagName('div')[0].removeChild(br);
     		var new_span = document.createElement('span');
-			new_div.appendChild(new_span);
-			body.appendChild(new_div);
+			body.getElementsByTagName('div')[0].appendChild(new_span);
+			// body.appendChild(new_div);
         }
 		body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML += results[0].transcript;
 		// body.appendChild(document.createElement('div').appen);
