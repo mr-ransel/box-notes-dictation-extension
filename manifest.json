@@ -9,7 +9,7 @@
     {
       "matches": ["https://cloud.app.box.com/services/box_notes/*"],
       "css": [],
-      "js": ["input.js", "output.js"]
+      "js": ["input.js", "output.js", "annyang.min.js"]
     }
   ]
 }
