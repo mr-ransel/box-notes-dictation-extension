@@ -145,20 +145,6 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
         // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
         for (var i = 0; i<results.length; i++) {
 
-
-          if (event.results[i].isFinal) {
-            current_line_concrete_content += results[i].transcript + ' ';
-            current_line_interim_content = '';
-            console.log('concrete:' + current_line_concrete_content);
-            console.log('interim:' + current_line_interim_content);
-            annyang.init({},false);
-          } else {
-            current_line_interim_content = results[i].transcript;
-            console.log('concrete:' + current_line_concrete_content);
-            console.log('interim:' + current_line_interim_content);
-          }
-          current_line_full_content = current_line_concrete_content + current_line_interim_content;
-
           // the text recognized
           commandText = results[i].transcript.trim();
           if (debugState) {
@@ -182,6 +168,14 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
               return true;
             }
           }
+          if (event.results[i].isFinal) {
+            current_line_concrete_content += results[i].transcript + ' ';
+            current_line_interim_content = '';
+            annyang.init(commands,false);
+          } else {
+            current_line_interim_content = results[i].transcript;
+          }
+          current_line_full_content = current_line_concrete_content + current_line_interim_content;
         }
         print_input(current_line_full_content);
         invokeCallbacks(callbacks.resultNoMatch);
@@ -300,6 +294,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 var current_line_concrete_content = '';
 var current_line_full_content = '';
 var current_line_interim_content = '';
+var lineNumber = 1;
 
 setTimeout(function() {
   var tempbody = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body;
@@ -336,17 +331,35 @@ function print_input(input_string)
 //  		var new_span = document.createElement('span');
 		// body.getElementsByTagName('div')[0].appendChild(new_span);
 //      }
-	body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML = input_string;
+	body.getElementsByTagName('div')[lineNumber-1].getElementsByTagName('span')[0].innerHTML = input_string;
 }
 
-if (annyang) {
-    var speakIt = function(term) {
+var speakIt = function(term) {
         var msg = new SpeechSynthesisUtterance('I will'+term);
         window.speechSynthesis.speak(msg);
     }
-    var commands = {'Jarvis please *term': speakIt,};
-    annyang.addCommands(commands);
+var goToLine = function(term) {
+  console.log('going to line ' + term);
+  annyang.init(commands,false);
+  current_line_full_content = '';
+  current_line_interim_content = '';
+  current_line_concrete_content = '';
+  if (is_int(term)) {
+    lineNumber = term;
+  } else {
+    return;
+  }
+  function is_int(n) {
+  return typeof n === 'number' && n % 1 == 0;
+  }
+}
 
+
+
+var commands = {'Jarvis go to line number *term': goToLine, 'Jarvis goto line number *term': goToLine};
+
+if (annyang) {
+    annyang.addCommands(commands);
     annyang.start();
     active = true;
 	annyang.debug();
