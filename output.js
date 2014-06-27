@@ -15,8 +15,8 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
 	function print_input(input_string)
 	{
-		
-		document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML += input_string;
+		console.log("hello");
+		// document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML += input_string;
 
 		// console.log(input_string	);
 		// for (var i = 0; i < input_string.length; ++i)
