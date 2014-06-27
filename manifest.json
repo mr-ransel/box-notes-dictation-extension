@@ -8,7 +8,6 @@
   "content_scripts": [
     {
       "matches": ["https://cloud.app.box.com/services/box_notes/*"],
-      "css": ["app.css"],
       "js": ["input.js", "output.js", "jquery.js", "annyang.min.js"]
     },
     {
