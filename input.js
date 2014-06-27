@@ -296,6 +296,8 @@ var current_line_full_content = '';
 var current_line_interim_content = '';
 var lineNumber = 1;
 
+var tempbody;
+
 setTimeout(function() {
   var tempbody = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body;
   current_line_concrete_content = tempbody.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML;
@@ -343,20 +345,21 @@ var goToLine = function(term) {
   annyang.init(commands,false);
   current_line_full_content = '';
   current_line_interim_content = '';
-  current_line_concrete_content = '';
-  if (is_int(term)) {
-    lineNumber = term;
-  } else {
-    return;
-  }
-  function is_int(n) {
-  return typeof n === 'number' && n % 1 == 0;
-  }
+  current_line_concrete_content = tempbody.getElementsByTagName('div')[lineNumber-1].getElementsByTagName('span')[0].innerHTML;
+  lineNumber=term;
+}
+var clearLine = function() {
+  console.log('clearing line' + lineNumber);
+  annyang.init(commands,false);
+  current_line_concrete_content = ' ';
+  current_line_interim_content = '';
+  current_line_full_content = '';
+  print_input(' ');
 }
 
 
 
-var commands = {'Jarvis go to line number *term': goToLine, 'Jarvis goto line number *term': goToLine};
+var commands = {'Jarvis go to number *term': goToLine, 'Jarvis goto number *term': goToLine, 'Jarvis delete that': clearLine};
 
 if (annyang) {
     annyang.addCommands(commands);
