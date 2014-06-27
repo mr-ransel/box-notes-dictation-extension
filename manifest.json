@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "One-click Kittens",
+  "description": "This extension demonstrates a 'browser action' with kittens.",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["https://cloud.app.box.com/services/box_notes/*"],
+      "css": [""],
+      "js": [""]
+    }
+  ]
+}
