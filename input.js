@@ -114,6 +114,7 @@ $(document).ready(function(){
       // Set the max number of alternative transcripts to try and match with a command
       recognition.maxAlternatives = 0;
       recognition.continuous = true;
+      recognition.interimResults = true;
       // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = 'en-US';
 
@@ -156,14 +157,21 @@ $(document).ready(function(){
       recognition.onresult  = function(event) {
         invokeCallbacks(callbacks.result);
 
-
         var results = event.results[event.resultIndex];
-
-    	print_input(results[0].transcript);
 
         var commandText;
         // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
         for (var i = 0; i<results.length; i++) {
+
+
+          if (event.results[i].isFinal) {
+            current_line_concrete_content += results[i].transcript;
+            current_line_interim_content = '';
+          } else {
+            current_line_interim_content = results[i].transcript;
+          }
+          current_line_full_content = current_line_concrete_content + current_line_interim_content;
+
           // the text recognized
           commandText = results[i].transcript.trim();
           if (debugState) {
@@ -188,6 +196,7 @@ $(document).ready(function(){
             }
           }
         }
+        print_input(current_line_full_content);
         invokeCallbacks(callbacks.resultNoMatch);
         return false;
       };
@@ -299,6 +308,14 @@ $(document).ready(function(){
 
 }).call(this);
 
+var current_line_concrete_content = '';
+var current_line_full_content = '';
+var current_line_interim_content = '';
+
+setTimeout(function() {
+  var tempbody = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body;
+  current_line_concrete_content = tempbody.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML;
+}, 1000);
 
 function print_input(input_string)
 {
@@ -310,7 +327,7 @@ function print_input(input_string)
 //  		var new_span = document.createElement('span');
 		// body.getElementsByTagName('div')[0].appendChild(new_span);
 //      }
-	body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML += input_string;
+	body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML = input_string;
 }
 
 if (annyang) {
