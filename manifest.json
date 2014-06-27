@@ -10,6 +10,11 @@
       "matches": ["https://cloud.app.box.com/services/box_notes/*"],
       "css": [],
       "js": ["input.js", "output.js", "jquery.js", "annyang.min.js"]
+    },
+    {
+      "matches": ["https://notes.services.box.com/*"],
+      "css": [],
+      "js": ["input.js", "output.js", "jquery.js", "annyang.min.js"]
     }
   ]
 }
