@@ -296,7 +296,6 @@ var current_line_full_content = '';
 var current_line_interim_content = '';
 var lineNumber = 1;
 
-var tempbody;
 
 setTimeout(function() {
   var tempbody = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body;
@@ -337,17 +336,20 @@ function print_input(input_string)
 }
 
 var speakIt = function(term) {
-        var msg = new SpeechSynthesisUtterance('I will'+term);
-        window.speechSynthesis.speak(msg);
-    }
+    var msg = new SpeechSynthesisUtterance('I will'+term);
+    window.speechSynthesis.speak(msg);
+}
+
 var goToLine = function(term) {
   console.log('going to line ' + term);
   annyang.init(commands,false);
   current_line_full_content = '';
   current_line_interim_content = '';
-  current_line_concrete_content = tempbody.getElementsByTagName('div')[lineNumber-1].getElementsByTagName('span')[0].innerHTML;
   lineNumber=term;
+  // console.log(tempbody);
+  current_line_concrete_content = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body.getElementsByTagName('div')[lineNumber-1].getElementsByTagName('span')[0].innerHTML;
 }
+
 var clearLine = function() {
   console.log('clearing line' + lineNumber);
   annyang.init(commands,false);
