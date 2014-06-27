@@ -139,8 +139,14 @@
         console.log(results[0].transcript);
 
         // print_input(results[0].transcript);
-
         var body = document.getElementsByTagName('IFRAME')[0].contentWindow.document.getElementsByTagName('IFRAME')[0].contentWindow.document.body;
+        if (!(body.getElementsByTagName('div').length))
+        {
+    		var new_div = document.createElement('div');
+    		var new_span = document.createElement('span');
+			new_div.appendChild(new_span);
+			body.appendChild(new_div);
+        }
 		body.getElementsByTagName('div')[0].getElementsByTagName('span')[0].innerHTML += results[0].transcript;
 		// body.appendChild(document.createElement('div').appen);
 
