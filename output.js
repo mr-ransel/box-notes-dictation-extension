@@ -15,7 +15,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
 	function print_input(input_string)
 	{
-		console.log("hello");
+		console.log(input_string);
 		for (var i = 0; i < input_string.length; ++i)
 		{
 			simulateKeyPress(input_string[i]);
@@ -24,8 +24,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
 	function simulateKeyPress(character)
 	{
-		console.log(character);
-		$('#innerdocbody').children().last().append(character);
+		$('#innerdocbody').children().last().children().first().append(character);
 	}
 
 // });
